@@ -50,6 +50,7 @@ module Sidekiq::Status
 
         jids.each do |jid|
           status = Sidekiq::Status::get_all jid
+          status['worker'] = status['worker'] + " / #{jid}"
           next if !status || status.count < 2
           status = add_details_to_status(status)
           @statuses << OpenStruct.new(status)
